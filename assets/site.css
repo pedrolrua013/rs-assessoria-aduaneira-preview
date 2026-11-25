@@ -580,3 +580,16 @@ a.f-card:hover{background:linear-gradient(180deg,rgba(20,4,6,.66),rgba(20,4,6,.4
  .f-ico{width:28px;height:28px;border-radius:8px}.f-ico svg{width:16px;height:16px}.f-av{width:30px;height:30px;font-size:12px}
  .f-stats .f-card b{font-size:26px}.f-stats>.f-card>.f-t{font-size:12px}
  .crate-paint h2{font-size:clamp(15px,5.4cqw,26px)}.crate-paint .f-eyebrow{font-size:clamp(9px,2.4cqw,12px)}}
+/* celular: cards em grade que cabe na largura (sem rolagem lateral, nenhum card pela metade) */
+@media (max-width:900px){
+ .crate-paint .f-cards,.crate-paint .f-stats{grid-auto-flow:row;grid-auto-columns:auto;grid-template-columns:repeat(auto-fit,minmax(min(150px,calc(50% - 5px)),1fr));overflow:visible;scroll-snap-type:none;padding:0;max-width:640px}
+ .crate-paint .f-cards>.f-card:last-child:nth-child(odd){grid-column:1/-1}
+ .f-card{flex-direction:row;flex-wrap:wrap;align-items:center;column-gap:10px;row-gap:4px;padding:11px 12px;min-height:0}
+ .f-card b{flex:1 1 60%;min-width:0;font-size:14.5px;line-height:1.2}
+ .f-card small{flex-basis:100%;order:-1}
+ .f-card em{flex-basis:100%;margin-top:2px}
+ .f-stats .f-card{flex-direction:column;align-items:flex-start}
+ .f-stats .f-card b{flex:none}
+ .f-member{flex-direction:row}}
+@media (max-width:900px) and (max-height:520px){.f-card em,.f-card small{display:none}.f-card{padding:9px 10px}}
+@media (max-width:900px) and (orientation:landscape){.crate-paint .f-cards,.crate-paint .f-stats{max-width:880px;grid-template-columns:repeat(auto-fit,minmax(130px,1fr))}.crate-paint .f-cards>.f-card:last-child:nth-child(odd){grid-column:auto}}
