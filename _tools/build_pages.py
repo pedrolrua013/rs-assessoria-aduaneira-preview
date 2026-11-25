@@ -336,11 +336,15 @@ def contact_section(wa_msg, preset=""):
 '''
 
 # ---------------- HOME ----------------
+I["calendar"] = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4M8 14h3M8 17h6"/></svg>'
+I["users"] = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M3 12h18M10 12v2h4v-2"/></svg>'
+I["team"] = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8" r="3"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6"/><circle cx="17" cy="9" r="2.4"/><path d="M16 14.2c2.9.4 5 2.8 5 5.8"/></svg>'
+
 # ---------------- pátio de contêineres (home) ----------------
 CRATES = {  # vídeo -> (desktop, celular, quadro de pausa). Rastreio em assets/video/<nome>.json
     "crate": ("/assets/video/crate.mp4", "/assets/video/crate-m.mp4", "/assets/video/crate-hold.webp"),
     "take-3": ("/assets/video/take-3-s.mp4", "/assets/video/take-3-s-m.mp4", "/assets/video/take-3-hold.webp"),
-    "hero": ("/assets/video/hero-s.mp4", "/assets/video/hero-s-m.mp4", "/assets/video/hero-hold.webp"),
+    "crate-blue": ("/assets/video/crate-blue.mp4", "/assets/video/crate-blue-m.mp4", "/assets/video/crate-blue-hold.webp"),  # contêiner de frente espelhado e repintado (_tools/recolor.py)
 }
 
 def crate_tracks():
@@ -432,11 +436,12 @@ def home():
 <script type="application/json" id="crate-track">{crate_tracks()}</script>
 '''
     out += crate("crate", "RSAU 199801-3", None, "Números da RS Assessoria Aduaneira", f"""
-    <div class="f-stats">
-     <div><b><span data-count="28">28</span></b><span>anos no comércio exterior</span></div>
-     <div><b><span data-count="150">150</span>+</b><span>clientes atendidos</span></div>
-     <div><b><span data-count="48">48</span></b><span>países nas operações</span></div>
-     <div><b><span data-count="15">15</span></b><span>profissionais</span></div>
+    <span class="f-eyebrow">A RS em números</span>
+    <div class="f-cards f-stats">
+     <div class="f-card"><span class="f-ico">{I['calendar']}</span><b><span data-count="28">28</span></b><span class="f-t">anos no comércio exterior</span></div>
+     <div class="f-card"><span class="f-ico">{I['users']}</span><b><span data-count="150">150</span>+</b><span class="f-t">clientes atendidos</span></div>
+     <div class="f-card"><span class="f-ico">{I['logistics']}</span><b><span data-count="48">48</span></b><span class="f-t">países nas operações</span></div>
+     <div class="f-card"><span class="f-ico">{I['team']}</span><b><span data-count="15">15</span></b><span class="f-t">profissionais na equipe</span></div>
     </div>""")
     out += f'''<section class="proof" aria-label="Empresas atendidas">
  <div class="container">
@@ -467,7 +472,7 @@ def home():
         ("JL", "José Luiz de Abreu Pestana", "Sócio-diretor · importação"),
         ("JR", "José Roberto Sassaki", "Sócio-diretor · exportação"),
         ("RA", "Rafael Arrazi", "Sócio-diretor · legislação de exportação")])
-    out += crate("hero", "RSAU 199804-0", "sobre", None, f"""
+    out += crate("crate-blue", "RSAU 199804-0", "sobre", None, f"""
     <span class="f-eyebrow">Sobre a RS · desde 1998</span>
     <h2 id="sobre-t">Quase três décadas no maior porto da América Latina.</h2>
     <div class="f-cards">{team}</div>""")

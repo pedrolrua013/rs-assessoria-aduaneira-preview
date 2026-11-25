@@ -546,5 +546,18 @@ a.f-card:hover{background:linear-gradient(180deg,rgba(20,4,6,.66),rgba(20,4,6,.4
  .crate-paint .f-cards{position:absolute;left:0;right:0;top:calc(100% + 14px);grid-auto-columns:46%;padding:0 0 4px}
  .f-card{background:rgba(24,6,8,.82);border-color:rgba(255,236,226,.18);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
  .f-card b{font-size:4cqw}.f-card small,.f-card em{font-size:2.8cqw}
- .crate-paint .f-link{display:none}
- .f-stats{position:static!important}}
+ .crate-paint .f-link{display:none}}
+/* números em cards com ícone */
+.crate-paint .f-stats{grid-auto-flow:row;grid-template-columns:repeat(4,1fr);align-items:stretch;gap:1.2cqw}
+.f-stats .f-card{gap:.9cqw;padding:1.9cqw 1.8cqw}
+.f-stats>.f-card>.f-ico{display:grid;margin:0;font-size:inherit;color:#FFD5CF}
+.f-stats .f-card b{font-size:5.6cqw;line-height:.95;letter-spacing:-.045em;margin-top:.6cqw;font-variant-numeric:tabular-nums}
+.f-stats>.f-card>.f-t{display:block;margin:0;font-size:1.3cqw;color:rgba(247,242,234,.8)}
+/* contêiner azul (cena Sobre) */
+[data-crate="crate-blue"] .crate-paint{background:linear-gradient(90deg,rgba(6,14,24,.32),rgba(6,14,24,.08) 70%,transparent)}
+[data-crate="crate-blue"] .f-card{background:linear-gradient(180deg,rgba(6,14,26,.55),rgba(6,14,26,.36))}
+[data-crate="crate-blue"] .f-eyebrow,[data-crate="crate-blue"] .f-card small{color:#CFE3F5}
+[data-crate="crate-blue"] .f-av{color:#2A3B4E}
+@media (max-width:900px){.crate-paint .f-stats{grid-template-columns:none;grid-auto-flow:column;grid-auto-columns:40%}.f-stats .f-card{padding:2.6cqw}.f-stats .f-card b{font-size:7cqw}.f-stats>.f-card>.f-t{display:block;font-size:2.6cqw}
+ [data-crate="crate-blue"] .f-card{background:rgba(8,16,28,.84)}}
+@media (min-width:901px){.crate-paint{justify-content:center}}

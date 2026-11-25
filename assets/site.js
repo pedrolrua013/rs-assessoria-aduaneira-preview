@@ -145,7 +145,7 @@ kick();
 var tel=d.getElementById("crate-track"),cs=[].slice.call(d.querySelectorAll("[data-crate]"));
 if(!tel||!cs.length)return;
 var TR=JSON.parse(tel.textContent),VW=1920,VH=1080;
-var FW={"crate":.8,"take-3":.76,"hero":.5};
+var FW={"crate":.8,"crate-blue":.8,"take-3":.76};
 Object.keys(TR).forEach(function(k){var T=TR[k],B=T.box;for(var i=0;i<T.frames;i++){if(!B[i])B[i]=B[i-1]||B[T.hold];}});
 var mq=w.matchMedia("(max-width: 900px)"),conn=navigator.connection,save=conn&&conn.saveData;
 function clamp(x){return x<0?0:x>1?1:x;}
