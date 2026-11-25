@@ -152,17 +152,25 @@ function clamp(x){return x<0?0:x>1?1:x;}
 var C=cs.map(function(el){var k=el.getAttribute("data-crate"),T=TR[k];return {el:el,k:k,T:T,st:el.querySelector(".crate-stage"),v:el.querySelector("video"),po:el.querySelector(".crate-poster"),
   f:el.querySelector(".crate-face"),cur:.5,tgt:.5,shown:T.hold,want:T.hold,loaded:false,L:null};});
 function layout(c){var W=c.st.clientWidth,H=c.st.clientHeight,mob=mq.matches,hb=c.T.box[c.T.hold],s,ox,oy;
-  if(mob){s=.92*W/(hb[2]*VW);}else{s=Math.max(W/VW,H/VH,Math.min((FW[c.k]||.7)*W/(hb[2]*VW),.68*H/(hb[3]*VH)));}
+  var fa=(hb[2]*VW)/(hb[3]*VH);   /* proporção da lateral */
+  if(mob){var cardsH=Math.min(150,H*.32);   /* faixa de cards abaixo do contêiner */
+    s=Math.min(.92*W/(hb[2]*VW),Math.max(60,H-cardsH-60)*.62/(hb[3]*VH));}
+  else{s=Math.max(W/VW,H/VH,Math.min((FW[c.k]||.7)*W/(hb[2]*VW),.6*H/(hb[3]*VH)));}
   var vw=VW*s,vh=VH*s;
-  ox=W/2-(hb[0]+hb[2]/2)*vw;oy=(mob?.5:.56)*H-(hb[1]+hb[3]/2)*vh;
+  ox=W/2-(hb[0]+hb[2]/2)*vw;
+  oy=.56*H-(hb[1]+hb[3]/2)*vh;
+  if(mob){var faceH=hb[3]*vh,cH=Math.min(150,H*.32),block=faceH*1.35+12+cH,top=Math.max(8,(H-block)/2)+faceH*.35;oy=top-hb[1]*vh;}  /* celular: contêiner + faixa de cards centralizados na altura */
   if(!mob){ox=Math.min(0,Math.max(W-vw,ox));oy=Math.min(0,Math.max(H-vh,oy));}
-  [c.po,c.v].forEach(function(m){m.style.width=vw+"px";m.style.height=vh+"px";m.style.left=ox+"px";m.style.top=oy+"px";});
-  c.L={vw:vw,vh:vh,ox:ox,oy:oy,fw:hb[2]*vw,fh:hb[3]*vh,hb:hb};c.f.style.width=c.L.fw+"px";c.f.style.height=c.L.fh+"px";place(c,c.shown);}
+  c.L={vw:vw,vh:vh,ox:ox,oy:oy,fw:hb[2]*vw,fh:hb[3]*vh,hb:hb,W:W,H:H,mob:mob,fa:fa};
+  c.f.style.width=c.L.fw+"px";c.f.style.height=c.L.fh+"px";media(c,0);place(c,c.shown);}
+function media(c,dx){var L=c.L;[c.po,c.v].forEach(function(m){m.style.width=L.vw+"px";m.style.height=L.vh+"px";m.style.left=(L.ox+dx)+"px";m.style.top=L.oy+"px";});}
 function place(c,i){var L=c.L;if(!L)return;var b=c.T.box[Math.max(0,Math.min(c.T.frames-1,i))],hb=L.hb;
   var cx=b[0]+b[2]/2,cy=b[1]+b[3]/2;
   if(b[1]<.006)cy=b[1]+b[3]-hb[3]/2;else if(b[1]+b[3]>.994)cy=b[1]+hb[3]/2;   /* lateral cortada pela borda do quadro */
   if(b[0]<.006)cx=b[0]+b[2]-hb[2]/2;else if(b[0]+b[2]>.994)cx=b[0]+hb[2]/2;
   var x=L.ox+cx*L.vw-L.fw/2,y=L.oy+cy*L.vh-L.fh/2;
+  if(L.mob){var dx=(L.W-L.fw)/2-x;   /* celular: a "câmera" acompanha o contêiner na horizontal */
+    if(Math.abs(dx-(c.dx||0))>.5){c.dx=dx;media(c,dx);}x+=dx;}
   c.f.style.transform="translate3d("+x.toFixed(1)+"px,"+y.toFixed(1)+"px,0)";}
 C.forEach(layout);
 w.addEventListener("resize",function(){C.forEach(layout);});
